@@ -16,7 +16,7 @@ def head_level_self_attention(Q, K, V):
     d = Q.shape[-1]
 
 
-    A = (Q @ K.transpose(-1, -2) / d**0.5).softmax(-2)
+    A = (Q @ K.transpose(-1, -2) / d**0.5).softmax(-1)
     attn_out = A @ V
     return attn_out.transpose(1, 2), A
 
