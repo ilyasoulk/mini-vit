@@ -22,8 +22,8 @@ def head_level_self_attention(Q, K, V):
 
 class TransformerEncoder(nn.Module):
     def __init__(self, hidden_dim, patch_dim, fc_dim, num_heads, activation="relu"):
-        # Input shape : (B, S, P, P, C)
-        # Reshape : (B, S, C, P**2)
+        # Input shape : (B, S, H)
+        super().__init__()
         self.ln_1 = nn.LayerNorm(hidden_dim)
         self.w_qkv = nn.Linear(hidden_dim, 3*hidden_dim)
         self.ln_2 = nn.LayerNorm(hidden_dim)
@@ -48,3 +48,35 @@ class TransformerEncoder(nn.Module):
 
         return x
 
+
+class EmbeddingBlock(nn.Module):
+    def __init__(self, patch_size, height, width, hidden_dim, channels) -> None:
+        super().__init__()
+        self.patch_size = patch_size
+        self.seq_len = (height * width) // patch_size**2
+        self.pos_emb = nn.Embedding(num_embeddings=self.seq_len, embedding_dim=hidden_dim)
+        self.proj = nn.Linear(patch_size**2 * channels, hidden_dim)
+
+    def forward(self, x):
+        # X shape : (B, H, W, C)
+        # New shape should be : (B, S, P**2 * C)
+        batch_size, h, w, c = x.shape
+        assert h % self.patch_size == 0 and w % self.patch_size == 0, \
+        "Height and width must be divisible by patch size."
+
+        # Reshape to (B, seq_len, patch_size**2 * C)
+        x = x.unfold(1, self.patch_size, self.patch_size) \
+             .unfold(2, self.patch_size, self.patch_size) \
+             .reshape(batch_size, -1, self.patch_size**2 * c)
+
+        x = self.proj(x)
+        pos_emb = self.pos_emb(torch.arange(self.seq_len))
+        pos_emb = pos_emb.unsqueeze(0)  # Shape (1, seq_len, hidden_dim) for broadcasting
+
+        x = x + pos_emb
+
+        return x
+
+
+# TODO : Model block
+# TODO : MNIST train
