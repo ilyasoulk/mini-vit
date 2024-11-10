@@ -137,13 +137,6 @@ The implementation includes several key components:
 1. [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929)
 2. [Original ViT Implementation](https://github.com/google-research/vision_transformer)
 
-
-## 👤 Author
-
-Your Name
-- GitHub: [@ilyasoulk](https://github.com/ilyasoulk)
-- LinkedIn: [Ilyas](https://www.linkedin.com/in/ilyas-oulkadda-a2b604200/)
-
 ## ⭐️ Show your support
 
 Give a ⭐️ if this project helped you understand Vision Transformers!
