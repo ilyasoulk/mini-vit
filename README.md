@@ -54,8 +54,8 @@ Compare to original ViT-Base:
 
 ```bash
 # Clone the repository
-git clone https://github.com/ilyasoulk/vit.git
-cd vit
+git clone https://github.com/ilyasoulk/mini-vit.git
+cd mini-vit
 
 # Install requirements
 pip install -r requirements.txt
