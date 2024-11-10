@@ -71,16 +71,14 @@ python src/train.py
 ## 📊 Results
 
 Performance on MNIST:
-- Training Accuracy: XX%
-- Test Accuracy: XX%
-- Number of Parameters: XX million
-- Training Time: XX hours on M1/M2 Mac
+- Test Accuracy: 98%
+- Number of Parameters: 11 million
+- Training Time: 2 Epochs on M2 Mac
 
 Performance on CIFAR-10:
-- Training Accuracy: XX%
-- Test Accuracy: XX%
-- Number of Parameters: XX million
-- Training Time: XX hours on M1/M2 Mac
+- Test Accuracy: 88%
+- Number of Parameters: 11 million
+- Training Time: 50 Epochs on NVIDIA T4
 
 ## 💡 Key Features
 
@@ -131,8 +129,8 @@ The implementation includes several key components:
 
 - Framework: PyTorch
 - Dataset: CIFAR-10
-- Hardware: M1/M2 Mac
-- Training Time: ~X hours
+- Hardware: NVIDIA T4
+- Training Time: 50 Epochs
 
 ## 🔗 References
 
