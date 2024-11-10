@@ -76,7 +76,7 @@ Performance on MNIST:
 - Training Time: 2 Epochs on M2 Mac
 
 Performance on CIFAR-10:
-- Test Accuracy: 88%
+- Test Accuracy: 85%
 - Number of Parameters: 11 million
 - Training Time: 50 Epochs on NVIDIA T4
 
