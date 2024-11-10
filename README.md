@@ -139,9 +139,6 @@ The implementation includes several key components:
 1. [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929)
 2. [Original ViT Implementation](https://github.com/google-research/vision_transformer)
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 👤 Author
 
