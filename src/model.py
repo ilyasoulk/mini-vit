@@ -26,7 +26,7 @@ def concat_heads(input_tensor):
 
 
 class TransformerEncoder(nn.Module):
-    def __init__(self, hidden_dim, fc_dim, num_heads, activation="relu"):
+    def __init__(self, hidden_dim, fc_dim, num_heads, activation="GELU"):
         # Input shape : (B, S, H)
         super().__init__()
         self.ln_1 = nn.LayerNorm(hidden_dim)
@@ -85,7 +85,7 @@ class EmbeddingBlock(nn.Module):
 
 
 class ViT(nn.Module):
-    def __init__(self, patch_size, input_shape, hidden_dim, fc_dim, num_heads, num_blocks, num_classes, activation="relu"):
+    def __init__(self, patch_size, input_shape, hidden_dim, fc_dim, num_heads, num_blocks, num_classes, activation="GELU"):
         super().__init__()
         self.embed = EmbeddingBlock(patch_size=patch_size, input_shape=input_shape, hidden_dim=hidden_dim)
         self.transformers = nn.Sequential(
