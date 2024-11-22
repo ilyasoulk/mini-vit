@@ -63,6 +63,8 @@ class EmbeddingBlock(nn.Module):
         self.seq_len = (height * width) // patch_size**2
         self.pos_emb = nn.Embedding(num_embeddings=self.seq_len, embedding_dim=hidden_dim)
         self.proj = nn.Linear(patch_size**2 * channels, hidden_dim)
+        self.projection = nn.Conv2d(channels, hidden_dim, kernel_size=patch_size, stride=patch_size)
+
 
     def forward(self, x):
         # X shape : (B, C, H, W)
@@ -71,12 +73,9 @@ class EmbeddingBlock(nn.Module):
         assert H % self.patch_size == 0 and W % self.patch_size == 0, \
         "Height and width must be divisible by patch size."
 
-        # Reshape to (B, seq_len, patch_size**2 * C)
-        x = x.unfold(2, self.patch_size, self.patch_size) \
-             .unfold(3, self.patch_size, self.patch_size) \
-             .reshape(B, -1, self.patch_size**2 * C)
+        x = self.projection(x)
+        x = x.view(B, C, H*W).transpose(1, 2)
 
-        x = self.proj(x)
         pos_emb = self.pos_emb(torch.arange(self.seq_len, device=x.device))
         pos_emb = pos_emb.unsqueeze(0)  # Shape (1, seq_len, hidden_dim) for broadcasting
 
