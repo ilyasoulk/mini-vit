@@ -30,7 +30,7 @@ class TransformerEncoder(nn.Module):
         # Input shape : (B, S, H)
         super().__init__()
         self.ln_1 = nn.LayerNorm(hidden_dim)
-        self.w_qkv = nn.Linear(hidden_dim, 3*hidden_dim)
+        self.w_qkv = nn.Linear(hidden_dim, 3*hidden_dim, bias=False)
         self.out = nn.Linear(hidden_dim, hidden_dim)
         self.ln_2 = nn.LayerNorm(hidden_dim)
         self.mlp_1 = nn.Linear(hidden_dim, fc_dim)
