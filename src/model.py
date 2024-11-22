@@ -31,6 +31,7 @@ class TransformerEncoder(nn.Module):
         super().__init__()
         self.ln_1 = nn.LayerNorm(hidden_dim)
         self.w_qkv = nn.Linear(hidden_dim, 3*hidden_dim)
+        self.out = nn.Linear(hidden_dim, hidden_dim)
         self.ln_2 = nn.LayerNorm(hidden_dim)
         self.mlp_1 = nn.Linear(hidden_dim, fc_dim)
         self.mlp_2 = nn.Linear(fc_dim, hidden_dim)
@@ -44,6 +45,7 @@ class TransformerEncoder(nn.Module):
         Q, K, V = split_into_heads(Q, K, V, num_heads=self.num_heads)
         attn_out, _ = head_level_self_attention(Q, K, V)
         attn_out = concat_heads(attn_out)
+        attn_out = self.out(attn_out)
         attn_out += x
 
         ln_2 = self.ln_2(attn_out)
